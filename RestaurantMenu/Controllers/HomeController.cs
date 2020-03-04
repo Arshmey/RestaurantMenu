@@ -23,15 +23,17 @@ namespace RestaurantMenu.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+        }
+        
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult VerifyName(string name)
+        {
+            //TODO: Add check to name
+            return Ok();
         }
     }
 }
