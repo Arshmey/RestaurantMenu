@@ -13,15 +13,6 @@ namespace RestaurantMenu.Data
             {
                 return;
             }
-            
-            var dishes = new []
-            {
-                new Dish{Name = "Плов", Composition = "Рис, Мясо", Description = "Просто плов", Price = 100, Grams = 300, Calorie = 150, CookTime = 30}, 
-            };
-            foreach (var dish in dishes)
-            {
-                context.Dishes.Add(dish);
-            }
 
             context.SaveChanges();
         }
