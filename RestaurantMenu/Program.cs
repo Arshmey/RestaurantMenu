@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using RestaurantMenu.Data;
 using RestaurantMenu.Models;
 
 namespace RestaurantMenu
@@ -23,8 +23,7 @@ namespace RestaurantMenu
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<DishContext>();
-                    DbInitializer.Initialize(context);
+                    services.GetRequiredService<DishContext>().Database.Migrate();
                 }
                 catch (Exception ex)
                 {
