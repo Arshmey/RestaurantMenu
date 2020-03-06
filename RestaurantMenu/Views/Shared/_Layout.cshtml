@@ -17,7 +17,7 @@
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="navbar-nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Добавить</a>
+                        @Html.ActionLink("Создать", "Create", "Home", new {}, new {@class = "addItem nav-link active"})
                     </li>
                 </ul>
             </div>

@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using RestaurantMenu.Models;
 
 namespace RestaurantMenu.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private DishContext _db;
 
-        public HomeController(ILogger<HomeController> logger, DishContext db)
+        public HomeController(DishContext db)
         {
-            _logger = logger;
             _db = db;
         }
 
@@ -36,6 +29,11 @@ namespace RestaurantMenu.Controllers
         {
             //TODO: Add check to name
             return Ok();
+        }
+        
+        public ActionResult Create()
+        {
+            return PartialView();
         }
     }
 }
