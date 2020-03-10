@@ -1,5 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using RestaurantMenu.Models;
 
 namespace RestaurantMenu.Controllers
@@ -8,32 +12,41 @@ namespace RestaurantMenu.Controllers
     {
         private DishContext _db;
 
-        public HomeController(DishContext db)
-        {
-            _db = db;
-        }
+        public HomeController(DishContext db) => _db = db;
 
-        public IActionResult Index()
-        {
-            return View(_db.Dishes);
-        }
+        public IActionResult Index() => View(_db.Dishes);
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
+
+        [HttpPost, AllowAnonymous]
+        public ActionResult VerifyName(string name) => Json(!CheckName(name));
         
-        [AcceptVerbs("GET", "POST")]
-        public IActionResult VerifyName(string name)
+        public bool CheckName(string name)
         {
-            //TODO: Add check to name
-            return Ok();
+            name = name.ToLower().Trim(' ');
+            return _db.Dishes.Any(x => x.Name == name);
         }
         
-        public ActionResult Create()
+        public IActionResult CreateForm(Dish dish = null) => View(dish);
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult CreateDish([Bind("Name, Composition, " +
+                                             "Description, Price, Grams, Calorie, CookTime")]Dish dish)
         {
-            return PartialView();
+            dish.DateCreate = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                _db.Dishes.Add(dish);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("CreateDish");
         }
     }
 }

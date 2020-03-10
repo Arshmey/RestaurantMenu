@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RestaurantMenu.Models
 {
@@ -11,12 +12,12 @@ namespace RestaurantMenu.Models
         
         [Display(Name = "Дата создания")]
         [DataType(DataType.DateTime)]
-        public DateTime DateCreate { get; }
+        public DateTime DateCreate { get; set; }
         
         [Required(ErrorMessage = "Заполните поле")]
         [Display(Name = "Название")]
         [StringLength(255, ErrorMessage = "Длина имени должна быть не более 255 знаков")]
-        //TODO: Add remote check
+        [Remote("VerifyName", "Home", HttpMethod = "POST", ErrorMessage = "Такое название уже используется")]
         public string Name { get; set; }
         
         [Required(ErrorMessage = "Заполните поле")]
@@ -47,10 +48,5 @@ namespace RestaurantMenu.Models
         [Display(Name = "Время приготвления")]
         [Range(0, Int32.MaxValue, ErrorMessage = "Время приготовления должно быть не менее 0")]
         public int CookTime { get; set; }
-
-        public Dish()
-        {
-            DateCreate = DateTime.Now;
-        }
     }
 }
