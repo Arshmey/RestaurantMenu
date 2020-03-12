@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Dish>
+﻿@using System.Globalization
+@model IEnumerable<Dish>
 
 <table class="table table-striped">
     <thead>
@@ -33,7 +34,8 @@
     @foreach (Dish item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(model => item.DateCreate)
+                @{ string dateCreate = item.DateCreate.ToString("g");}
+                @Html.DisplayFor(model => dateCreate)
             </td>
             <td>
                 @Html.DisplayFor(model => item.Name)
@@ -45,16 +47,20 @@
                 @Html.DisplayFor(model => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(model => item.Price)
+                @{ string price = item.Price + " " + CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol;}
+                @Html.DisplayFor(model => price)
             </td>
             <td>
-                @Html.DisplayFor(model => item.Grams)
+                @{ string grams = item.Grams + " г.";}
+                @Html.DisplayFor(model => grams)
             </td>
             <td>
-                @Html.DisplayFor(model => item.Calorie)
+                @{ string calorie = Table.CountCalorie(item);}
+                @Html.DisplayFor(model => calorie)
             </td>
             <td>
-                @Html.DisplayFor(model => item.CookTime)
+                @{ string cookTime = Table.CountTime(item);}
+                @Html.DisplayFor(model => cookTime)
             </td>
         </tr>
     }
