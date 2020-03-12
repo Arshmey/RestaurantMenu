@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="AspDotNetCore2BinderFloatingDecimalModel" Version="1.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2" />
@@ -13,6 +14,10 @@
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Pages\Components\Table\Default.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RestaurantMenu.Models\RestaurantMenu.Models.csproj" />
     </ItemGroup>
 
 

@@ -31,22 +31,22 @@ namespace RestaurantMenu.Models
         
         [DefaultValue(0)]
         [Display(Name = "Цена")]
-        [Range(0, Single.MaxValue, ErrorMessage = "Цена должна быть не менее 0")]
-        public float Price { get; set; }
+        [Range(0.1, Single.MaxValue, ErrorMessage = "Цена должна быть не менее 0.1")]
+        public decimal Price { get; set; }
         
         [DefaultValue(0)]
         [Display(Name = "Граммовка")]
-        [Range(0, Int32.MaxValue, ErrorMessage = "Граммовка должна быть не менее 0")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "Граммовка должна быть не менее 1")]
         public int Grams { get; set; }
         
         [DefaultValue(0)]
         [Display(Name = "Калорийность")]
-        [Range(0, Single.MaxValue, ErrorMessage = "Калорийность должна быть не менее 0")]
-        public float Calorie { get; set; }
+        [Range(0.1, Single.MaxValue, ErrorMessage = "Калорийность должна быть не менее 0.1")]
+        public decimal Calorie { get; set; }
         
         [DefaultValue(0)]
         [Display(Name = "Время приготвления")]
-        [Range(0, Int32.MaxValue, ErrorMessage = "Время приготовления должно быть не менее 0")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "Время приготовления должно быть не менее 1")]
         public int CookTime { get; set; }
     }
 }

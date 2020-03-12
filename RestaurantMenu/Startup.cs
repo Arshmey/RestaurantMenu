@@ -1,5 +1,7 @@
+using FloatingDecimalBinderModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +24,10 @@ namespace RestaurantMenu
             services.AddControllersWithViews();
             services.AddDbContext<DishContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Db")));
+            services.AddMvc(opts =>
+            {
+                opts.ModelBinderProviders.Insert(0, new CustomDecimalModelBinderProvider());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

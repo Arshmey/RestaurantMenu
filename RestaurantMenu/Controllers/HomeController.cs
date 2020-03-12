@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using RestaurantMenu.Models;
 
 namespace RestaurantMenu.Controllers
@@ -46,7 +45,7 @@ namespace RestaurantMenu.Controllers
                 return RedirectToAction("Index");
             }
 
-            return RedirectToAction("CreateDish");
+            return RedirectToAction("CreateForm", dish);
         }
     }
 }
