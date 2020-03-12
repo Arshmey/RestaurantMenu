@@ -20,32 +20,5 @@ namespace RestaurantMenu.Controllers
         {
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
-
-        [HttpPost, AllowAnonymous]
-        public ActionResult VerifyName(string name) => Json(!CheckName(name));
-        
-        public bool CheckName(string name)
-        {
-            name = name.ToLower().Trim(' ');
-            return _db.Dishes.Any(x => x.Name == name);
-        }
-        
-        public IActionResult CreateForm(Dish dish = null) => View(dish);
-
-        [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult CreateDish([Bind("Name, Composition, " +
-                                             "Description, Price, Grams, Calorie, CookTime")]Dish dish)
-        {
-            dish.DateCreate = DateTime.Now;
-            if (ModelState.IsValid)
-            {
-                _db.Dishes.Add(dish);
-                _db.SaveChanges();
-
-                return RedirectToAction("Index");
-            }
-
-            return RedirectToAction("CreateForm", dish);
-        }
     }
 }

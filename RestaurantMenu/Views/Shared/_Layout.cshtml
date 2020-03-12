@@ -13,11 +13,11 @@
             <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#navbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand position-absolute" href="@Url.ActionLink("Index")">Меню ресторана</a>
+            <a class="navbar-brand position-absolute" href="@Url.ActionLink("Index", "Home")">Меню ресторана</a>
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="navbar-nav justify-content-center">
                     <li class="nav-item">
-                        @Html.ActionLink("Создать", "CreateForm", "Home", new {}, new {@class = "nav-link active"})
+                        @Html.ActionLink("Создать", "CreateForm", "Dish", new {}, new {@class = "nav-link active"})
                     </li>
                 </ul>
             </div>

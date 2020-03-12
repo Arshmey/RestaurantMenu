@@ -1,7 +1,7 @@
 ﻿@model Dish
 
 <div class="text-center">
-  @using(Html.BeginForm("CreateDish", "Home", FormMethod.Post))
+  @using(Html.BeginForm("CreateDish", "Dish", FormMethod.Post))
   {
     @Html.ValidationSummary(true)
       <div class="form-group">

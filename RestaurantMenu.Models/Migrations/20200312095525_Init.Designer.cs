@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantMenu.Models;
 
-namespace RestaurantMenu.Migrations
+namespace RestaurantMenu.Models.Migrations
 {
     [DbContext(typeof(DishContext))]
-    [Migration("20200309205309_DishChanges")]
-    partial class DishChanges
+    [Migration("20200312095525_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,8 +28,8 @@ namespace RestaurantMenu.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<float>("Calorie")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Calorie")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Composition")
                         .IsRequired()
@@ -54,8 +54,8 @@ namespace RestaurantMenu.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace RestaurantMenu.Migrations
+namespace RestaurantMenu.Models.Migrations
 {
-    public partial class InitCreate : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,12 +13,13 @@ namespace RestaurantMenu.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    DateCreate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(maxLength: 255, nullable: false),
                     Composition = table.Column<string>(nullable: false),
                     Description = table.Column<string>(maxLength: 500, nullable: false),
-                    Price = table.Column<float>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
                     Grams = table.Column<int>(nullable: false),
-                    Calorie = table.Column<float>(nullable: false),
+                    Calorie = table.Column<decimal>(nullable: false),
                     CookTime = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

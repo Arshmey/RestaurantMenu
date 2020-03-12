@@ -1,4 +1,4 @@
-
+﻿
 namespace RestaurantMenu.Models
 {
     public class ErrorViewModel
