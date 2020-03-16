@@ -34,8 +34,7 @@
     @foreach (Dish item in Model) {
         <tr>
             <td>
-                @{ string dateCreate = item.DateCreate.ToString("g");}
-                @Html.DisplayFor(model => dateCreate)
+                @Html.DisplayFor(model => item.DateCreate)
             </td>
             <td>
                 @Html.DisplayFor(model => item.Name)
@@ -55,12 +54,27 @@
                 @Html.DisplayFor(model => grams)
             </td>
             <td>
-                @{ string calorie = Table.CountCalorie(item);}
+                @{ string calorie = item.CountCalorie();}
                 @Html.DisplayFor(model => calorie)
             </td>
             <td>
-                @{ string cookTime = Table.CountTime(item);}
+                @{ string cookTime = item.CountTime();}
                 @Html.DisplayFor(model => cookTime)
+            </td>
+            <td>
+                <a type="button" class="btn btn-default" asp-controller="Dish" asp-action="Edit" asp-route-id="@item.Id" title="Редактировать">
+                    <span class="fa fa-pen" aria-hidden="true"></span>
+                </a>
+            </td>
+            <td>
+                <a type="button" class="btn btn-default" href="@Url.Action("Create", "Dish")" title="Просмотр">
+                    <span class="fa fa-eye" aria-hidden="true"></span>
+                </a>
+            </td>
+            <td>
+                <a type="button" class="btn btn-default" href="@Url.Action("Delete", "Dish", item)" title="Удалить">
+                    <span class="fa fa-trash" aria-hidden="true"></span>
+                </a>
             </td>
         </tr>
     }

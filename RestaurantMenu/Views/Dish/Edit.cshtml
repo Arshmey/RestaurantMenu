@@ -1,0 +1,56 @@
+﻿@model Dish
+
+<div class="text-center">
+  <form asp-action="Edit" asp-controller="Dish" asp-route-id="@Model.Id">
+    @Html.ValidationSummary(true)
+      <div class="form-group">
+        <strong>@Html.LabelFor(m => m.DateCreate)</strong>
+        @Html.TextBoxFor(m => m.DateCreate, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.DateCreate, null, new {@class = "text-danger"})
+      </div>
+      <div class="form-group">
+        <strong>@Html.LabelFor(m => m.Name)</strong>
+        @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Name, null, new {@class = "text-danger"})
+      </div>
+      <div class="form-group">
+        <strong>@Html.LabelFor(m => m.Composition)</strong>
+        @Html.TextBoxFor(m => m.Composition, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Composition, null, new {@class = "text-danger"})
+      </div>
+      <div class="form-group">
+        <strong>@Html.LabelFor(m => m.Description)</strong>
+        @Html.TextBoxFor(m => m.Description, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Description, null, new {@class = "text-danger"})
+      </div>
+      <div class="form-group">
+        <strong>@Html.LabelFor(m => m.Price)</strong>
+        @Html.TextBoxFor(m => m.Price, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Price, null, new {@class = "text-danger"})
+      </div>
+      <div class="form-group">
+        <strong>@Html.LabelFor(m => m.Grams)</strong>
+        @Html.TextBoxFor(m => m.Grams, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Grams, null, new {@class = "text-danger"})
+      </div>
+      <div class="form-group">
+        <strong>@Html.LabelFor(m => m.Calorie)</strong>
+        <p>Указываются калории на 100 грамм</p>
+        @Html.TextBoxFor(m => m.Calorie, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Calorie, null, new {@class = "text-danger"})
+      </div>
+      <div class="form-group">
+        <strong>@Html.LabelFor(m => m.CookTime)</strong>
+        @Html.TextBoxFor(m => m.CookTime, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.CookTime, null, new {@class = "text-danger"})
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Обновить</button>
+      </div>
+  </form>
+</div>
+
+@section Scripts
+{
+  @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -13,6 +13,7 @@ namespace RestaurantMenu.Models
         
         [Display(Name = "Дата создания")]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}", ApplyFormatInEditMode = true)]
         public DateTime DateCreate { get; set; }
         
         [Required(ErrorMessage = "Заполните поле")]
@@ -30,9 +31,9 @@ namespace RestaurantMenu.Models
         [StringLength(500, ErrorMessage = "Длина описания должна быть не более 500 знаков")]
         public string Description { get; set; }
         
-        [DefaultValue(0.1)]
+        [DefaultValue(0.01)]
         [Display(Name = "Цена")]
-        [Range(0.1, Single.MaxValue, ErrorMessage = "Цена должна быть не менее 0.1")]
+        [Range(0.01, Single.MaxValue, ErrorMessage = "Цена должна быть не менее 0.01")]
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
         
@@ -41,9 +42,9 @@ namespace RestaurantMenu.Models
         [Range(1, Int32.MaxValue, ErrorMessage = "Граммовка должна быть не менее 1")]
         public int Grams { get; set; }
         
-        [DefaultValue(0.1)]
+        [DefaultValue(0.01)]
         [Display(Name = "Калорийность")]
-        [Range(0.1, Single.MaxValue, ErrorMessage = "Калорийность должна быть не менее 0.1")]
+        [Range(0.01, Single.MaxValue, ErrorMessage = "Калорийность должна быть не менее 0.01")]
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Calorie { get; set; }
         
@@ -51,5 +52,28 @@ namespace RestaurantMenu.Models
         [Display(Name = "Время приготвления")]
         [Range(1, Int32.MaxValue, ErrorMessage = "Время приготовления должно быть не менее 1")]
         public int CookTime { get; set; }
+        
+        public string CountTime()
+        {
+            int hours = TimeSpan.FromMinutes(CookTime).Hours;
+            int ostMin = CookTime - hours* 60;
+            switch (hours)
+            {
+                case 1:
+                    return $"{hours} час {ostMin} мин.";
+                case 2:
+                case 3:
+                case 4:
+                    return $"{hours} часа {ostMin} мин.";
+                default:
+                    return hours >= 5 ? $"{hours} часов {ostMin} мин." : $"{CookTime} мин.";
+            }
+        }
+
+        public string CountCalorie()
+        {
+            decimal finalCalorie = Grams * (Calorie / 100);
+            return $"{finalCalorie} ккал.";
+        }
     }
 }
