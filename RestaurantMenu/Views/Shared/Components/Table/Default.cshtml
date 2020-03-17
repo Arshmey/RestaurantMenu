@@ -7,42 +7,42 @@
     <thead>
     <tr>
         <th>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.DateCreateSort">
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.DateCreateSort" asp-route-pageNumber="@ViewBag.CurrentPage">
                 @Html.DisplayNameFor(model => dummyModel.DateCreate)
             </a>
         </th>
         <th>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.NameSort">
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.NameSort" asp-route-pageNumber="@ViewBag.CurrentPage">
                 @Html.DisplayNameFor(model => dummyModel.Name)
             </a>
         </th>
         <th>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CompositionSort">
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CompositionSort" asp-route-pageNumber="@ViewBag.CurrentPage">
                 @Html.DisplayNameFor(model => dummyModel.Composition)
             </a>
         </th>
         <th>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.DescriptionSort">
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.DescriptionSort" asp-route-pageNumber="@ViewBag.CurrentPage">
                 @Html.DisplayNameFor(model => dummyModel.Description)
             </a>
         </th>
         <th>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.PriceSort">
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.PriceSort" asp-route-pageNumber="@ViewBag.CurrentPage">
                 @Html.DisplayNameFor(model => dummyModel.Price)
             </a>
         </th>
         <th>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.GramsSort">
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.GramsSort" asp-route-pageNumber="@ViewBag.CurrentPage">
                 @Html.DisplayNameFor(model => dummyModel.Grams)
             </a>
         </th>
         <th>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CalorieSort">
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CalorieSort" asp-route-pageNumber="@ViewBag.CurrentPage">
                 @Html.DisplayNameFor(model => dummyModel.Calorie)
             </a>
         </th>
         <th>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CookTimeSort">
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CookTimeSort" asp-route-pageNumber="@ViewBag.CurrentPage">
                 @Html.DisplayNameFor(model => dummyModel.CookTime)
             </a>
         </th>
@@ -100,5 +100,5 @@
 </table>
 <br />
 <div class="btn-group">
-    @Html.PageLinks(Model.PageInfo, (DishSortState) ViewBag.CurrentSort, (x, cs) => Url.Action("Index", "Home", new { pageNumber = x, sortOrder = cs}))
+    @Html.PageLinks(Model.PageInfo, (DishSortState) ViewBag.CurrentSort, (x, cs) => Url.Action("Index", "Home", new { sortOrder = cs, pageNumber = x}))
 </div>

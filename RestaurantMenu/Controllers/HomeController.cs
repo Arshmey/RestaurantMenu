@@ -7,7 +7,7 @@ namespace RestaurantMenu.Controllers
 {
     public class HomeController : Controller
     {
-        public const int ElementsInPage = 2;//Времено стоит 2
+        public const int ElementsInPage = 20;
 
         private DishContext _db;
 
@@ -18,6 +18,7 @@ namespace RestaurantMenu.Controllers
             IQueryable<Dish> dishes = _db.Dishes.Skip((pageNumber - 1) * ElementsInPage).Take(ElementsInPage);
 
             ViewData["CurrentSort"] = sortOrder;
+            ViewData["CurrentPage"] = pageNumber;
             ViewData["DateCreateSort"] = sortOrder == DishSortState.DateCreateAsc
                 ? DishSortState.DateCreateDesc
                 : DishSortState.DateCreateAsc;
@@ -44,7 +45,7 @@ namespace RestaurantMenu.Controllers
                 : DishSortState.CookTimeAsc;
 
             dishes = dishes.SortDishes(sortOrder);
-            PageInfo pageInfo = new PageInfo{PageNumber = pageNumber, PageSize = ElementsInPage, TotalItems = dishes.Count()};
+            PageInfo pageInfo = new PageInfo{PageNumber = pageNumber, PageSize = ElementsInPage, TotalItems = _db.Dishes.Count()};
             TableViewModel tvm = new TableViewModel{PageInfo = pageInfo, Dishes = dishes};
             
             return View(tvm);
