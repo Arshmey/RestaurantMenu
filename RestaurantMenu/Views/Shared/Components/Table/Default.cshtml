@@ -1,37 +1,55 @@
 ﻿@using System.Globalization
-@model IEnumerable<Dish>
+@using RestaurantMenu.Helpers
+@model TableViewModel
 
+@{ Dish dummyModel = null; }
 <table class="table table-striped">
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DateCreate)
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.DateCreateSort">
+                @Html.DisplayNameFor(model => dummyModel.DateCreate)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.NameSort">
+                @Html.DisplayNameFor(model => dummyModel.Name)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Composition)
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CompositionSort">
+                @Html.DisplayNameFor(model => dummyModel.Composition)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.DescriptionSort">
+                @Html.DisplayNameFor(model => dummyModel.Description)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.PriceSort">
+                @Html.DisplayNameFor(model => dummyModel.Price)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Grams)
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.GramsSort">
+                @Html.DisplayNameFor(model => dummyModel.Grams)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Calorie)
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CalorieSort">
+                @Html.DisplayNameFor(model => dummyModel.Calorie)
+            </a>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CookTime)
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CookTimeSort">
+                @Html.DisplayNameFor(model => dummyModel.CookTime)
+            </a>
         </th>
     </tr>
     </thead>
     <tbody>
-    @foreach (Dish item in Model) {
+    @foreach (Dish item in Model.Dishes) {
         <tr>
             <td>
                 @Html.DisplayFor(model => item.DateCreate)
@@ -80,3 +98,7 @@
     }
     </tbody>
 </table>
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo, (DishSortState) ViewBag.CurrentSort, (x, cs) => Url.Action("Index", "Home", new { pageNumber = x, sortOrder = cs}))
+</div>
