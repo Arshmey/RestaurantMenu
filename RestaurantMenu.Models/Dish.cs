@@ -52,7 +52,7 @@ namespace RestaurantMenu.Models
         [Display(Name = "Время приготвления")]
         [Range(1, Int32.MaxValue, ErrorMessage = "Время приготовления должно быть не менее 1")]
         public int CookTime { get; set; }
-        
+
         public string CountTime()
         {
             int hours = TimeSpan.FromMinutes(CookTime).Hours;
