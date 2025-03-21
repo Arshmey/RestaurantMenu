@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RestaurantMenu.Models;
+using System.IO;
 
 namespace RestaurantMenu
 {
@@ -23,11 +24,11 @@ namespace RestaurantMenu
         {
             services.AddControllersWithViews();
             services.AddDbContext<DishContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Db")));
+                options.UseSqlite(Configuration.GetConnectionString("SQLiteDB")));
             services.AddMvc(opts =>
             {
                 opts.ModelBinderProviders.Insert(0, new CustomDecimalModelBinderProvider());
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

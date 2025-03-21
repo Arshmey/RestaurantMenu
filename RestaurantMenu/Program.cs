@@ -19,7 +19,8 @@ namespace RestaurantMenu
                 var services = scope.ServiceProvider;
                 try
                 {
-                    services.GetRequiredService<DishContext>().Database.Migrate();
+                    services.GetRequiredService<DishContext>().Database.EnsureCreated();
+                    services.GetRequiredService<DishContext>().Database.OpenConnection();
                 }
                 catch (Exception ex)
                 {

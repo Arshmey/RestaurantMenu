@@ -2,15 +2,21 @@
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using RestaurantMenu.Models;
 
 namespace RestaurantMenu.Controllers
 {
     public class DishController : Controller
     {
-        private DishContext _db;
+        private DishContext db;
+        private ILogger<DishController> logger;
 
-        public DishController(DishContext db) => _db = db;
+        public DishController(DishContext db, ILogger<DishController> logger)
+        {
+            this.db = db;
+            this.logger = logger;
+        }
 
         [HttpPost, AllowAnonymous]
         public ActionResult VerifyName(string name) => Json(!CheckName(name));
@@ -18,20 +24,35 @@ namespace RestaurantMenu.Controllers
         public bool CheckName(string name)
         {
             name = name.ToLower().Trim(' ');
-            return _db.Dishes.Any(x => x.Name == name);
+            return db.Dishes.Any(x => x.Name == name);
         }
 
         public IActionResult Create(Dish dish = null) => View(dish);
 
         public IActionResult Edit(int? id)
         {
+            Dish dish = db.Dishes.FirstOrDefault(p => p.Id == id);
             if (id != null)
             {
-                Dish dish = _db.Dishes.FirstOrDefault(p => p.Id == id);
                 if (dish != null)
                     return View(dish);
             }
 
+            return NotFound();
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            logger.LogInformation($"ID : {id}");
+            Dish dish = db.Dishes.FirstOrDefault(p => p.Id == id);
+            if (id != null)
+            {
+                logger.LogInformation("Found");
+                if (dish != null)
+                    return View(dish);
+            }
+
+            logger.LogError("Not Found");
             return NotFound();
         }
 
@@ -43,8 +64,8 @@ namespace RestaurantMenu.Controllers
             if (!ModelState.IsValid) return RedirectToAction("Create", model);
 
             model.DateCreate = DateTime.Now;
-            _db.Dishes.Add(model);
-            _db.SaveChanges();
+            db.Dishes.Add(model);
+            db.SaveChanges();
 
             return RedirectToAction("Index", "Home");
         }
@@ -54,20 +75,26 @@ namespace RestaurantMenu.Controllers
         {
             if (!ModelState.IsValid) return RedirectToAction("Edit", model);
 
-            _db.Dishes.Update(model);
-            _db.SaveChanges();
+            db.Dishes.Update(model);
+            db.SaveChanges();
 
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult ReturnHome()
+        {
             return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         public ActionResult Delete(Dish model)
         {
-            Dish dish = _db.Dishes.Find(model);
-            if (dish != null)
+            logger.LogInformation($"Deleted {model}");
+            if (model != null)
             {
-                _db.Dishes.Remove(dish);
-                _db.SaveChanges();
+                db.Dishes.Remove(model);
+                db.SaveChanges();
             }
 
             return RedirectToAction("Index", "Home");

@@ -1,0 +1,25 @@
+﻿@model Dish
+
+<div class="text-center">
+    @Html.ValidationSummary(true)
+    <div class="form-group">
+        <strong>@Html.Label("Вы уверены, что хотите удалить запись?")</strong>
+    </div>
+    <div class="form-inline">
+        @using (Html.BeginForm("Delete", "Dish", Model))
+        {
+            <button type="submit" class="btn btn-outline-dark">Да</button>
+        }
+        @using (Html.BeginForm("ReturnHome", "Dish"))
+        {
+            <button type="submit" class="btn btn-outline-dark">Нет</button>
+        }
+    </div>
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -90,7 +90,7 @@
                 </a>
             </td>
             <td>
-                <a type="button" class="btn btn-default" href="@Url.Action("Delete", "Dish", item)" title="Удалить">
+                    <a type="button" class="btn btn-default" asp-controller="Dish" asp-action="Delete" asp-route-id="@item.Id" title="Удалить">
                     <span class="fa fa-trash" aria-hidden="true"></span>
                 </a>
             </td>
